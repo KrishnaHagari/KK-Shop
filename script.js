@@ -1,0 +1,92 @@
+console.log("KK SHOP UPDATED CODE LOADED");
+// 1. Product Details
+let products = [
+    {
+        name: "Shirt",
+        price: 500,
+        stock: 10
+    },
+    {
+        name: "Jeans",
+        price: 1200,
+        stock: 5
+    },
+    {
+        name: "T-Shirt",
+        price: 400,
+        stock: 8
+    }
+];
+
+// 2. Empty Cart
+let cart = [];
+
+// 3. Display Products
+let productList = document.getElementById("product-list");
+
+for (let i = 0; i < products.length; i++) {
+
+    let status;
+
+    if (products[i].stock > 0) {
+        status = "In Stock";
+    } else {
+        status = "Out of Stock";
+    }
+
+    productList.innerHTML += `
+        <div class="product-card">
+            <h3>${products[i].name}</h3>
+            <p>Price: ₹${products[i].price}</p>
+            <p>Stock: ${products[i].stock}</p>
+            <p>${status}</p>
+            <button onclick="addToCart(${i})">Add to Cart</button>
+        </div>
+    `;
+}
+
+// 4. Add to Cart Function
+function addToCart(index) {
+
+    let selectedProduct = products[index];
+
+    if (selectedProduct.stock <= 0) {
+        alert("Out of Stock!");
+        return;
+    }
+
+    let existingProduct = cart.find(
+        item => item.name === selectedProduct.name
+    );
+
+    if (existingProduct) {
+        existingProduct.quantity++;
+    } else {
+        cart.push({...selectedProduct, quantity: 1});
+    }
+
+    // 5. Update Cart Count
+    let cartCount = document.getElementById("cart-count");
+    let cartItems = document.getElementById("cart-items");
+
+    let totalQuantity = cart.reduce(
+        (sum, item) => sum + item.quantity, 0
+    );
+
+    cartCount.innerText = "My Cart: " + totalQuantity;
+    let totalAmount = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+);
+
+document.getElementById("cart-total").innerText =
+    "Total: ₹" + totalAmount;
+
+    // 6. Display Cart Products
+    cartItems.innerHTML = "";
+
+    for (let item of cart) {
+    cartItems.innerHTML += `
+        <p>${item.name} - Price: ₹${item.price} - Quantity: ${item.quantity}</p>
+    `;
+}
+}
