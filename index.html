@@ -1,12 +1,14 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KK Clothes</title>
-    <link rel="stylesheet" href="/static/style.css">   
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
+
     <header>
         <h1>KK Clothes</h1>
         <p>your style your choice</p>
@@ -20,35 +22,50 @@
     </nav>
 
     <main>
+
         <section id="home">
             <h2>Welcome to KK Clothes</h2>
             <p>Discover the latest fashion and trends at KK Clothes.</p>
         </section>
-        <section id="products">
-            <h3 id="cart-count">My Cart: 0</h3>
-            <div id="cart-items">
 
-            </div>
+        <section id="products">
+
+            <h3 id="cart-count">My Cart: 0</h3>
+
+            <div id="cart-items"></div>
+   
             <h3 id="cart-total">Total: ₹0</h3>
+
             <button id="checkout-btn">Checkout</button>
             <h2>Our products</h2>
-            
-            <div id="product-list">
+            <input type="text" id="search-input" placeholder="Search products...">
+            <select id="category-filter">
+                <option value="all">All Categories</option>
+                <option value="Men">Men</option>
+            </select>
 
-            </div>
+<div id="product-list"></div>
+
         </section>
+
         <section id="about">
             <h2>About KK Clothes</h2>
             <p>We provide quality clothes at affordable prices.</p>
         </section>
+
         <section id="contact">
             <h2>Contact us</h2>
             <p>Get in touch with KK Clothes for any queries.</p>
         </section>
+
     </main>
+
     <footer>
         © 2026 KK Clothes. All rights reserved.
-    </footer> 
-    <script src="script.js"></script>  
+    </footer>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
+```

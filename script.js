@@ -4,17 +4,20 @@ let products = [
     {
         name: "Shirt",
         price: 500,
-        stock: 10
+        stock: 10,
+        category: "Men"
     },
     {
         name: "Jeans",
         price: 1200,
-        stock: 5
+        stock: 5,
+        category: "Men"
     },
     {
         name: "T-Shirt",
         price: 400,
-        stock: 8
+        stock: 8,
+        category: "Men"
     }
 ];
 
@@ -24,11 +27,14 @@ let cart = [];
 // 3. Display Products
 let productList = document.getElementById("product-list");
 
-for (let i = 0; i < products.length; i++) {
+function displayProducts(productArray) {
+    productList.innerHTML = "";
+
+    for (let i = 0; i < productArray.length; i++) {
 
     let status;
 
-    if (products[i].stock > 0) {
+    if (productArray[i].stock > 0) {
         status = "In Stock";
     } else {
         status = "Out of Stock";
@@ -36,14 +42,16 @@ for (let i = 0; i < products.length; i++) {
 
     productList.innerHTML += `
         <div class="product-card">
-            <h3>${products[i].name}</h3>
-            <p>Price: ₹${products[i].price}</p>
-            <p>Stock: ${products[i].stock}</p>
+            <h3>${productArray[i].name}</h3>
+            <p>Price: ₹${productArray[i].price}</p>
+            <p>Stock: ${productArray[i].stock}</p>
             <p>${status}</p>
-            <button onclick="addToCart(${i})">Add to Cart</button>
+            <button onclick="addToCart(${products.indexOf(productArray[i])})">Add to Cart</button>
         </div>
     `;
 }
+}
+displayProducts(products);
 
 // 4. Add to Cart Function
 function addToCart(index) {
@@ -195,4 +203,46 @@ function checkout() {
     cart = [];
 
     updateCart();
+<<<<<<< HEAD
 }
+=======
+}
+
+let searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", filterProducts); 
+
+let categoryFilter = document.getElementById("category-filter");
+
+categoryFilter.addEventListener("change", filterProducts);
+
+}
+
+let searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", filterProducts);
+
+let categoryFilter = document.getElementById("category-filter");
+
+categoryFilter.addEventListener("change", filterProducts);
+
+function filterProducts() {
+    let searchText = searchInput.value.toLowerCase();
+    let selectedCategory = categoryFilter.value;
+
+    let filteredProducts = products.filter(product => {
+        let matchesSearch = product.name
+            .toLowerCase()
+            .includes(searchText);
+
+        let matchesCategory =
+            selectedCategory === "all" ||
+            product.category === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    displayProducts(filteredProducts);
+}
+
+console.log("Search feature loaded");
