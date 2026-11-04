@@ -1,82 +1,215 @@
 body {
-    background-color: #F5F1EA;
-    margin: 0;
+    background-color: #111111;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
 }
 
-h1{
-    color: #222222;
-    font-size: 36px;
-    font-weight: bold;
-    letter-spacing: 2px;
-}
-
-p{
-    font-family: Roboto;
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555555;
-}
-
-nav {
-    background-color: #222222;
-    padding: 15px;
-    display: flex;
-    justify-content:space-between;
-    gap: 20px;
-    align-items: center;
-}
-
-nav a {
-    text-decoration: none;
-    color: #FFFFFF;
-    padding: 10px 15px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-nav a:hover {
-    color: #A67C52;
-}
+/* HEADER DESIGN */
 
 header {
-    background-color:#F5F1EA;
-    text-align: center;
-    padding: 30px;
-    color: #222222;
-}
-
-section {
-    padding: 30px;
-    margin: 20px;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-    background-color: #222222;
-    color: #FFFFFF;
-    text-align: center;
+    background-color: #000000;
+    color: #D4AF37;
     padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #D4AF37;
 }
 
-@media (max-width: 600px) {
-    nav {
-        flex-direction:column;
-        text-align:center;
-    }
+header h1 {
+    font-size: 32px;
+    letter-spacing: 3px;
 }
+
+/* PRODUCT CARD DESIGN */
 
 #product-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    padding: 20px;
 }
 
 .product-card {
-    background-color: white;
+    background-color: #1A1A1A;
+    color: white;
     padding: 20px;
+    border: 1px solid #D4AF37;
     border-radius: 10px;
-    width: 200px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.product-card h3 {
+    color: #D4AF37;
+    font-size: 22px;
+}
+
+/* BUTTON DESIGN */
+
+button {
+    background-color: #D4AF37;
+    color: #000000;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+/* SEARCH AND FILTER */
+
+#search-input,
+#category-filter {
+    background-color: #1A1A1A;
+    color: white;
+    padding: 12px;
+    border: 1px solid #D4AF37;
+    border-radius: 5px;
+    margin: 10px;
+    outline: none;
+}
+
+#search-input {
+    width: 250px;
+}
+
+#search-input::placeholder {
+    color: #BBBBBB;
+}
+
+#category-filter {
+    cursor: pointer;
+}
+
+/* CART DESIGN */
+
+#cart-items {
+    background-color: #1A1A1A;
+    color: white;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #D4AF37;
+    border-radius: 10px;
+}
+
+#cart-count {
+    color: #D4AF37;
+    font-weight: bold;
+}
+
+#cart-total {
+    color: #D4AF37;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 20px;
+}
+
+/* PRODUCT DETAILS DESIGN */
+
+#product-details {
+    background-color: #1A1A1A;
+    color: white;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #D4AF37;
+    border-radius: 10px;
+}
+
+#product-details h2 {
+    color: #D4AF37;
+}
+
+#product-details p {
+    color: #DDDDDD;
+    line-height: 1.6;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* TABLET SCREEN */
+
+@media (max-width: 768px) {
+
+    #product-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* MOBILE SCREEN */
+
+@media (max-width: 480px) {
+
+    #product-list {
+        grid-template-columns: 1fr;
+    }
+
+    #search-input {
+        width: 80%;
+    }
+
+}
+
+/* SECTION HEADING DESIGN */
+
+h2 {
+    color: #D4AF37;
+    text-align: center;
+    font-size: 28px;
+    margin: 25px 0;
+}
+
+/* PAGE SPACING */
+
+section {
+    padding: 20px;
+}
+
+/* SMOOTH SCROLL */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* NAVIGATION MENU DESIGN */
+
+nav {
+    background-color: #000000;
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #D4AF37;
+}
+
+nav a {
+    color: #D4AF37;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 130px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #FFFFFF;
+    border-bottom: 2px solid #D4AF37;
+    padding-bottom: 5px;
+}
+
+/* FOOTER DESIGN */
+
+footer {
+    background-color: #000000;
+    color: #D4AF37;
+    text-align: center;
+    padding: 25px;
+    margin-top: 30px;
+    border-top: 2px solid #D4AF37;
+}
+
+footer p {
+    font-size: 14px;
+    letter-spacing: 1px;
 }
