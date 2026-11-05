@@ -8,21 +8,24 @@ let products = [
         price: 500,
         stock: 10,
         category: "Men",
-        description: "Premium cotton casual shirt"
+        description: "Premium cotton casual shirt",
+        image: "shirt.jpg"
     },
     {
         name: "Jeans",
         price: 1200,
         stock: 5,
         category: "Men",
-        description: "Premium Black jeans"
+        description: "Premium Black jeans",
+        image: "jeans.jpg"
     },
     {
         name: "T-Shirt",
         price: 400,
         stock: 8,
         category: "Men",
-        description: "Premium cotton casual T-shirt"
+        description: "Premium cotton casual T-shirt",
+        image: "tshirt.jpg"
     }
 ];
 
@@ -50,6 +53,7 @@ function displayProducts(productArray) {
 
         productList.innerHTML += `
             <div class="product-card">
+                <img src="images/${productArray[i].image}" alt="${productArray[i].name}">
 
                 <h3>${productArray[i].name}</h3>
 
