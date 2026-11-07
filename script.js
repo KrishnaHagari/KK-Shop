@@ -3,30 +3,30 @@ console.log("KK SHOP LOADED");
 // 1. Product Details
 
 let products = [
-    {
-        name: "Shirt",
-        price: 500,
-        stock: 10,
-        category: "Men",
-        description: "Premium cotton casual shirt",
-        image: "shirt.jpg"
-    },
-    {
-        name: "Jeans",
-        price: 1200,
-        stock: 5,
-        category: "Men",
-        description: "Premium Black jeans",
-        image: "jeans.jpg"
-    },
-    {
-        name: "T-Shirt",
-        price: 400,
-        stock: 8,
-        category: "Men",
-        description: "Premium cotton casual T-shirt",
-        image: "tshirt.jpg"
-    }
+  {
+    name: "Shirt",
+    price: 500,
+    stock: 10,
+    category: "Men",
+    description: "Premium cotton casual shirt",
+    image: "shirt.jpg",
+  },
+  {
+    name: "Jeans",
+    price: 1200,
+    stock: 5,
+    category: "Men",
+    description: "Premium Black jeans",
+    image: "jeans.jpg",
+  },
+  {
+    name: "T-Shirt",
+    price: 400,
+    stock: 8,
+    category: "Men",
+    description: "Premium cotton casual T-shirt",
+    image: "tshirt.jpg",
+  },
 ];
 
 // 2. Empty Cart
@@ -38,20 +38,18 @@ let cart = [];
 let productList = document.getElementById("product-list");
 
 function displayProducts(productArray) {
+  productList.innerHTML = "";
 
-    productList.innerHTML = "";
+  for (let i = 0; i < productArray.length; i++) {
+    let status;
 
-    for (let i = 0; i < productArray.length; i++) {
+    if (productArray[i].stock > 0) {
+      status = "In Stock";
+    } else {
+      status = "Out of Stock";
+    }
 
-        let status;
-
-        if (productArray[i].stock > 0) {
-            status = "In Stock";
-        } else {
-            status = "Out of Stock";
-        }
-
-        productList.innerHTML += `
+    productList.innerHTML += `
             <div class="product-card">
                 <img src="images/${productArray[i].image}" alt="${productArray[i].name}">
 
@@ -73,7 +71,7 @@ function displayProducts(productArray) {
 
             </div>
         `;
-    }
+  }
 }
 
 displayProducts(products);
@@ -81,130 +79,126 @@ displayProducts(products);
 // 4. View Product Details
 
 function viewDetails(index) {
+  let selectedProduct = products[index];
+  let imagePath = "images/" + selectedProduct.image;
 
-    let selectedProduct = products[index];
+  let productDetails = document.getElementById("product-details");
 
-    let productDetails = document.getElementById("product-details");
+  productDetails.innerHTML = `
 
-    productDetails.innerHTML = `
+    <div class="details-image">
+        <img src="${imagePath}" alt="${selectedProduct.name}">
+    </div>
+
+    <div class="details-info">
+
         <h2>${selectedProduct.name}</h2>
 
-        <p>Price: ₹${selectedProduct.price}</p>
+        <p class="product-price">
+            Price: ₹${selectedProduct.price}
+        </p>
 
-        <p>Category: ${selectedProduct.category}</p>
+        <p class="product-category">
+            Category: ${selectedProduct.category}
+        </p>
 
-        <p>Stock: ${selectedProduct.stock}</p>
+        <p class="stock-status">
+            Stock: ${selectedProduct.stock}
+        </p>
 
-        <p>Description: ${selectedProduct.description}</p>
+        <p>${selectedProduct.description}</p>
 
         <button onclick="closeDetails()">Close Details</button>
 
-    `;
-}
+    </div>
 
-function closeDetails() {
+`;
+
+  function closeDetails() {
     document.getElementById("product-details").innerHTML = "";
-}
+  }
 
-// 5. Add to Cart
+  // 5. Add to Cart
 
-function addToCart(index) {
-
+  function addToCart(index) {
     let selectedProduct = products[index];
 
     if (selectedProduct.stock <= 0) {
-        alert("Out of Stock!");
-        return;
+      alert("Out of Stock!");
+      return;
     }
 
     let existingProduct = cart.find(
-        item => item.name === selectedProduct.name
+      (item) => item.name === selectedProduct.name,
     );
 
     if (existingProduct) {
+      if (existingProduct.quantity >= selectedProduct.stock) {
+        alert("Maximum stock reached!");
+        return;
+      }
 
-        if (existingProduct.quantity >= selectedProduct.stock) {
-            alert("Maximum stock reached!");
-            return;
-        }
-
-        existingProduct.quantity++;
-
+      existingProduct.quantity++;
     } else {
-
-        cart.push({
-            ...selectedProduct,
-            quantity: 1
-        });
-
+      cart.push({
+        ...selectedProduct,
+        quantity: 1,
+      });
     }
 
     updateCart();
-}
+  }
 
-// 6. Increase Quantity
+  // 6. Increase Quantity
 
-function increaseQuantity(productName) {
-
-    let item = cart.find(
-        product => product.name === productName
-    );
+  function increaseQuantity(productName) {
+    let item = cart.find((product) => product.name === productName);
 
     let originalProduct = products.find(
-        product => product.name === productName
+      (product) => product.name === productName,
     );
 
     if (item.quantity >= originalProduct.stock) {
-        alert("Maximum stock reached!");
-        return;
+      alert("Maximum stock reached!");
+      return;
     }
 
     item.quantity++;
 
     updateCart();
-}
+  }
 
-// 7. Decrease Quantity
+  // 7. Decrease Quantity
 
-function decreaseQuantity(productName) {
-
-    let item = cart.find(
-        product => product.name === productName
-    );
+  function decreaseQuantity(productName) {
+    let item = cart.find((product) => product.name === productName);
 
     if (item.quantity > 1) {
-        item.quantity--;
+      item.quantity--;
     } else {
-        cart = cart.filter(
-            product => product.name !== productName
-        );
+      cart = cart.filter((product) => product.name !== productName);
     }
 
     updateCart();
-}
+  }
 
-// 8. Remove From Cart
+  // 8. Remove From Cart
 
-function removeFromCart(productName) {
-
-    cart = cart.filter(
-        item => item.name !== productName
-    );
+  function removeFromCart(productName) {
+    cart = cart.filter((item) => item.name !== productName);
 
     updateCart();
-}
+  }
 
-// 9. Update Cart
+  // 9. Update Cart
 
-function updateCart() {
-
+  function updateCart() {
     let cartItems = document.getElementById("cart-items");
 
     cartItems.innerHTML = "";
 
     for (let item of cart) {
-
-        cartItems.innerHTML += `
+      cartItems.innerHTML += `
             <p>
                 ${item.name} - ₹${item.price}
 
@@ -233,32 +227,29 @@ function updateCart() {
         `;
     }
 
-    let totalQuantity = cart.reduce(
-        (sum, item) => sum + item.quantity, 0
-    );
+    let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
     document.getElementById("cart-count").innerText =
-        "My Cart: " + totalQuantity;
+      "My Cart: " + totalQuantity;
 
     let totalAmount = cart.reduce(
-        (sum, item) => sum + item.price * item.quantity, 0
+      (sum, item) => sum + item.price * item.quantity,
+      0,
     );
 
-    document.getElementById("cart-total").innerText =
-        "Total: ₹" + totalAmount;
-}
+    document.getElementById("cart-total").innerText = "Total: ₹" + totalAmount;
+  }
 
-// 10. Checkout
+  // 10. Checkout
 
-let checkoutButton = document.getElementById("checkout-btn");
+  let checkoutButton = document.getElementById("checkout-btn");
 
-checkoutButton.addEventListener("click", checkout);
+  checkoutButton.addEventListener("click", checkout);
 
-function checkout() {
-
+  function checkout() {
     if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
+      alert("Your cart is empty!");
+      return;
     }
 
     alert("Order placed successfully!");
@@ -266,42 +257,38 @@ function checkout() {
     cart = [];
 
     updateCart();
-}
+  }
 
-// 11. Search Products
+  // 11. Search Products
 
-let searchInput = document.getElementById("search-input");
+  let searchInput = document.getElementById("search-input");
 
-searchInput.addEventListener("input", filterProducts);
+  searchInput.addEventListener("input", filterProducts);
 
-// 12. Category Filter
+  // 12. Category Filter
 
-let categoryFilter = document.getElementById("category-filter");
+  let categoryFilter = document.getElementById("category-filter");
 
-categoryFilter.addEventListener("change", filterProducts);
+  categoryFilter.addEventListener("change", filterProducts);
 
-// 13. Filter Products
+  // 13. Filter Products
 
-function filterProducts() {
-
+  function filterProducts() {
     let searchText = searchInput.value.toLowerCase();
 
     let selectedCategory = categoryFilter.value;
 
-    let filteredProducts = products.filter(product => {
+    let filteredProducts = products.filter((product) => {
+      let matchesSearch = product.name.toLowerCase().includes(searchText);
 
-        let matchesSearch = product.name
-            .toLowerCase()
-            .includes(searchText);
+      let matchesCategory =
+        selectedCategory === "all" || product.category === selectedCategory;
 
-        let matchesCategory =
-            selectedCategory === "all" ||
-            product.category === selectedCategory;
-
-        return matchesSearch && matchesCategory;
+      return matchesSearch && matchesCategory;
     });
 
     displayProducts(filteredProducts);
-}
+  }
 
-console.log("KK SHOP ALL FEATURES LOADED");
+  console.log("KK SHOP ALL FEATURES LOADED");
+}
