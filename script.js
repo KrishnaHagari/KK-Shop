@@ -113,92 +113,91 @@ function viewDetails(index) {
     </div>
 
 `;
+}
 
-  function closeDetails() {
-    document.getElementById("product-details").innerHTML = "";
+function closeDetails() {
+  document.getElementById("product-details").innerHTML = "";
+}
+
+// 5. Add to Cart
+
+function addToCart(index) {
+  let selectedProduct = products[index];
+
+  if (selectedProduct.stock <= 0) {
+    alert("Out of Stock!");
+    return;
   }
 
-  // 5. Add to Cart
+  let existingProduct = cart.find((item) => item.name === selectedProduct.name);
 
-  function addToCart(index) {
-    let selectedProduct = products[index];
-
-    if (selectedProduct.stock <= 0) {
-      alert("Out of Stock!");
-      return;
-    }
-
-    let existingProduct = cart.find(
-      (item) => item.name === selectedProduct.name,
-    );
-
-    if (existingProduct) {
-      if (existingProduct.quantity >= selectedProduct.stock) {
-        alert("Maximum stock reached!");
-        return;
-      }
-
-      existingProduct.quantity++;
-    } else {
-      cart.push({
-        ...selectedProduct,
-        quantity: 1,
-      });
-    }
-
-    updateCart();
-  }
-
-  // 6. Increase Quantity
-
-  function increaseQuantity(productName) {
-    let item = cart.find((product) => product.name === productName);
-
-    let originalProduct = products.find(
-      (product) => product.name === productName,
-    );
-
-    if (item.quantity >= originalProduct.stock) {
+  if (existingProduct) {
+    if (existingProduct.quantity >= selectedProduct.stock) {
       alert("Maximum stock reached!");
       return;
     }
 
-    item.quantity++;
-
-    updateCart();
+    existingProduct.quantity++;
+  } else {
+    cart.push({
+      ...selectedProduct,
+      quantity: 1,
+    });
   }
 
-  // 7. Decrease Quantity
+  updateCart();
+}
 
-  function decreaseQuantity(productName) {
-    let item = cart.find((product) => product.name === productName);
+// 6. Increase Quantity
 
-    if (item.quantity > 1) {
-      item.quantity--;
-    } else {
-      cart = cart.filter((product) => product.name !== productName);
-    }
+function increaseQuantity(productName) {
+  let item = cart.find((product) => product.name === productName);
 
-    updateCart();
+  let originalProduct = products.find(
+    (product) => product.name === productName,
+  );
+
+  if (item.quantity >= originalProduct.stock) {
+    alert("Maximum stock reached!");
+    return;
   }
 
-  // 8. Remove From Cart
+  item.quantity++;
 
-  function removeFromCart(productName) {
-    cart = cart.filter((item) => item.name !== productName);
+  updateCart();
+}
 
-    updateCart();
+// 7. Decrease Quantity
+
+function decreaseQuantity(productName) {
+  let item = cart.find((product) => product.name === productName);
+
+  if (item.quantity > 1) {
+    item.quantity--;
+  } else {
+    cart = cart.filter((product) => product.name !== productName);
   }
 
-  // 9. Update Cart
+  updateCart();
+}
 
-  function updateCart() {
-    let cartItems = document.getElementById("cart-items");
+// 8. Remove From Cart
 
-    cartItems.innerHTML = "";
+function removeFromCart(productName) {
+  cart = cart.filter((item) => item.name !== productName);
 
-    for (let item of cart) {
-      cartItems.innerHTML += `
+  updateCart();
+}
+
+// 9. Update Cart
+
+function updateCart() {
+  let cartItems = document.getElementById("cart-items");
+
+  cartItems.innerHTML = "";
+
+  for (let item of cart) {
+    cartItems.innerHTML += `
             <p>
                 ${item.name} - ₹${item.price}
 
@@ -225,70 +224,85 @@ function viewDetails(index) {
                 Quantity: ${item.quantity}
             </p>
         `;
-    }
-
-    let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
-
-    document.getElementById("cart-count").innerText =
-      "My Cart: " + totalQuantity;
-
-    let totalAmount = cart.reduce(
-      (sum, item) => sum + item.price * item.quantity,
-      0,
-    );
-
-    document.getElementById("cart-total").innerText = "Total: ₹" + totalAmount;
   }
 
-  // 10. Checkout
+  let totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  let checkoutButton = document.getElementById("checkout-btn");
+  document.getElementById("cart-count").innerText = "My Cart: " + totalQuantity;
 
-  checkoutButton.addEventListener("click", checkout);
+  let totalAmount = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
-  function checkout() {
-    if (cart.length === 0) {
-      alert("Your cart is empty!");
-      return;
-    }
-
-    alert("Order placed successfully!");
-
-    cart = [];
-
-    updateCart();
-  }
-
-  // 11. Search Products
-
-  let searchInput = document.getElementById("search-input");
-
-  searchInput.addEventListener("input", filterProducts);
-
-  // 12. Category Filter
-
-  let categoryFilter = document.getElementById("category-filter");
-
-  categoryFilter.addEventListener("change", filterProducts);
-
-  // 13. Filter Products
-
-  function filterProducts() {
-    let searchText = searchInput.value.toLowerCase();
-
-    let selectedCategory = categoryFilter.value;
-
-    let filteredProducts = products.filter((product) => {
-      let matchesSearch = product.name.toLowerCase().includes(searchText);
-
-      let matchesCategory =
-        selectedCategory === "all" || product.category === selectedCategory;
-
-      return matchesSearch && matchesCategory;
-    });
-
-    displayProducts(filteredProducts);
-  }
-
-  console.log("KK SHOP ALL FEATURES LOADED");
+  document.getElementById("cart-total").innerText = "Total: ₹" + totalAmount;
 }
+
+// 10. Checkout
+
+let checkoutButton = document.getElementById("checkout-btn");
+
+checkoutButton.addEventListener("click", checkout);
+
+function checkout() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  alert("Order placed successfully!");
+
+  cart = [];
+
+  updateCart();
+}
+
+// 11. Search Products
+
+let searchInput = document.getElementById("search-input");
+
+searchInput.addEventListener("input", filterProducts);
+
+// 12. Category Filter
+
+let categoryFilter = document.getElementById("category-filter");
+
+categoryFilter.addEventListener("change", filterProducts);
+// Product Sorting
+
+let sortFilter = document.getElementById("sort-filter");
+
+sortFilter.addEventListener("change", function () {
+  console.log("Selected Sort:", sortFilter.value);
+  filterProducts();
+});
+// 13. Filter Products
+
+function filterProducts() {
+  let searchText = searchInput.value.toLowerCase();
+
+  let selectedCategory = categoryFilter.value;
+
+  let filteredProducts = products.filter((product) => {
+    let matchesSearch = product.name.toLowerCase().includes(searchText);
+
+    let matchesCategory =
+      selectedCategory === "all" || product.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
+
+  let sortOrder = sortFilter.value;
+
+  if (sortOrder === "low-high") {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  }
+
+  if (sortOrder === "high-low") {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  }
+
+  displayProducts(filteredProducts);
+}
+
+console.log("KK SHOP ALL FEATURES LOADED");
