@@ -1,0 +1,116 @@
+body {
+  background-color: #111111;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+header {
+  background-color: #1a1a1a;
+  color: #d4af37;
+  padding: 25px;
+  text-align: center;
+  border-bottom: 2px solid #d4af37;
+}
+
+nav {
+  background-color: #222222;
+  padding: 15px;
+  text-align: center;
+}
+
+nav button {
+  background-color: #d4af37;
+  color: black;
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+main {
+  padding: 30px;
+}
+
+main h2 {
+  color: #d4af37;
+  margin-bottom: 25px;
+}
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.dashboard-cards div {
+  background-color: #1a1a1a;
+  border: 1px solid #d4af37;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: center;
+}
+
+.dashboard-cards h3 {
+  color: #d4af37;
+}
+
+.dashboard-cards p {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  nav button {
+    margin: 5px 2px;
+    padding: 10px;
+  }
+
+  main {
+    padding: 15px;
+  }
+}
+
+.product-overview {
+  margin-top: 40px;
+}
+
+.product-overview h2 {
+  color: #d4af37;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1a1a1a;
+}
+
+th,
+td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #d4af37;
+}
+
+th {
+  background-color: #d4af37;
+  color: black;
+}
+
+td {
+  color: white;
+}
+
+.in-stock {
+  color: #00cc66;
+  font-weight: bold;
+}
+
+.out-stock {
+  color: #ff4444;
+  font-weight: bold;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KK Clothes Admin</title>
+    <link rel="stylesheet" href="static/admin.css">
+</head>
+<body>
+    <header>
+    <h1>KK Clothes Admin</h1>
+    <p>Welcome to Admin Panel</p>
+</header>
+
+<nav>
+    <button>Dashboard</button>
+    <button>Products</button>
+    <button>Orders</button>
+    <button>Stock</button>
+</nav>
+
+<main>
+    <h2>Dashboard Overview</h2>
+
+    <div class="dashboard-cards">
+        <div>
+            <h3>Total Products</h3>
+            <p id="total-products">0</p>
+        </div>
+
+        <div>
+            <h3>Total Orders</h3>
+            <p id="total-orders">0</p>
+        </div>
+
+        <div>
+            <h3>Available Stock</h3>
+            <p id="available-stock">0</p>
+        </div>
+    </div>
+    <section class="product-overview">
+
+    <h2>Product Overview</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Stock</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody id="admin-product-list">
+        </tbody>
+    </table>
+
+</section>
+</main>
+<script src="static/admin.js"></script>
+</body>
+</html>
