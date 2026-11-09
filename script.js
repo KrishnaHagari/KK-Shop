@@ -250,11 +250,19 @@ function checkout() {
     return;
   }
 
+  for (let item of cart) {
+    let product = products.find((product) => product.name === item.name);
+
+    product.stock = product.stock - item.quantity;
+  }
+
   alert("Order placed successfully!");
 
   cart = [];
 
   updateCart();
+
+  filterProducts();
 }
 
 // 11. Search Products
