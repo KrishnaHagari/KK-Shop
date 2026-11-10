@@ -1,9 +1,9 @@
 console.log("KK Admin come To Rule");
 
 let adminProducts = [
-  { name: "Shirt", stock: 10 },
-  { name: "Jeans", stock: 5 },
-  { name: "T-Shirt", stock: 8 },
+  { name: "Shirt", price: 500, stock: 10 },
+  { name: "Jeans", price: 1200, stock: 5 },
+  { name: "T-Shirt", price: 400, stock: 8 },
 ];
 
 function displayAdminProducts() {
@@ -39,8 +39,18 @@ function displayAdminProducts() {
     adminProductList.innerHTML += `
         <tr>
             <td>${product.name}</td>
+            <td>${product.price || 0}</td>
             <td>${product.stock}</td>
             <td class="${statusClass}">${status}</td>
+            <td>
+    <button onclick="editProduct(${adminProducts.indexOf(product)})">
+        Edit
+    </button>
+
+    <button onclick="deleteProduct(${adminProducts.indexOf(product)})">
+        Delete
+    </button>
+</td>
         </tr>
     `;
   }
@@ -75,3 +85,31 @@ productForm.addEventListener("submit", function (event) {
 
   console.log(adminProducts);
 });
+
+function deleteProduct(index) {
+  adminProducts.splice(index, 1);
+
+  displayAdminProducts();
+}
+
+function editProduct(index) {
+  let product = adminProducts[index];
+
+  let newName = prompt("Enter Product Name", product.name);
+
+  if (newName === null) return;
+
+  let newPrice = prompt("Enter Product Price", product.price);
+
+  if (newPrice === null) return;
+
+  let newStock = prompt("Enter Product Stock", product.stock);
+
+  if (newStock === null) return;
+
+  product.name = newName;
+  product.price = Number(newPrice);
+  product.stock = Number(newStock);
+
+  displayAdminProducts();
+}
