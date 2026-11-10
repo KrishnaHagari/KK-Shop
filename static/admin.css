@@ -114,3 +114,44 @@ td {
   color: #ff4444;
   font-weight: bold;
 }
+
+.add-product {
+  background-color: #1a1a1a;
+  padding: 25px;
+  margin-top: 30px;
+  border: 1px solid #d4af37;
+  border-radius: 10px;
+}
+
+.add-product h2 {
+  color: #d4af37;
+}
+
+#product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#product-form input,
+#product-form select {
+  padding: 12px;
+  background-color: #222222;
+  color: white;
+  border: 1px solid #d4af37;
+  border-radius: 5px;
+}
+
+#product-form button {
+  background-color: #d4af37;
+  color: black;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#product-form button:hover {
+  background-color: #f5d76e;
+}
