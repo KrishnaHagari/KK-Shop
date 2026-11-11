@@ -155,3 +155,37 @@ td {
 #product-form button:hover {
   background-color: #f5d76e;
 }
+
+.edit {
+  background-color: orange;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.edit:hover {
+  background-color: darkorange;
+}
+
+.delete {
+  background-color: red;
+  transition: 0, 3s;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.delete:hover {
+  background-color: darkred;
+}
+
+.low-stock {
+  color: #ffa500;
+  font-weight: bold;
+}
+
+#low-stock-count {
+  color: #ffa500;
+}
+
+#out-stock-count {
+  color: #ff4444;
+}

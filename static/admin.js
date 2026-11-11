@@ -14,6 +14,18 @@ function displayAdminProducts() {
     0,
   );
 
+  let lowStockCount = adminProducts.filter(
+    (product) => product.stock > 0 && product.stock <= 5,
+  ).length;
+
+  let outStockCount = adminProducts.filter(
+    (product) => product.stock === 0,
+  ).length;
+
+  document.getElementById("out-stock-count").innerText = outStockCount;
+
+  document.getElementById("low-stock-count").innerText = lowStockCount;
+
   document.getElementById("total-products").innerText = totalProducts;
 
   document.getElementById("total-orders").innerText = 0;
@@ -28,12 +40,15 @@ function displayAdminProducts() {
 
     let statusClass;
 
-    if (product.stock > 0) {
-      status = "In Stock";
-      statusClass = "in-stock";
-    } else {
+    if (product.stock === 0) {
       status = "Out of Stock";
       statusClass = "out-stock";
+    } else if (product.stock <= 5) {
+      status = "Low Stock";
+      statusClass = "low-stock";
+    } else {
+      status = "In Stock";
+      statusClass = "in-stock";
     }
 
     adminProductList.innerHTML += `
@@ -43,11 +58,11 @@ function displayAdminProducts() {
             <td>${product.stock}</td>
             <td class="${statusClass}">${status}</td>
             <td>
-    <button onclick="editProduct(${adminProducts.indexOf(product)})">
+    <button class="edit" onclick="editProduct(${adminProducts.indexOf(product)})">
         Edit
     </button>
 
-    <button onclick="deleteProduct(${adminProducts.indexOf(product)})">
+    <button class="delete" onclick="deleteProduct(${adminProducts.indexOf(product)})">
         Delete
     </button>
 </td>
@@ -106,6 +121,11 @@ function editProduct(index) {
   let newStock = prompt("Enter Product Stock", product.stock);
 
   if (newStock === null) return;
+
+  if (newStock === "" || Number(newStock) < 0) {
+    alert("Please enter valid stock!");
+    return;
+  }
 
   product.name = newName;
   product.price = Number(newPrice);
