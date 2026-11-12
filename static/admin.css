@@ -189,3 +189,34 @@ td {
 #out-stock-count {
   color: #ff4444;
 }
+
+/* ORDER STATUS DESIGN */
+
+.order-status-select {
+  background-color: #111;
+  color: #d4af37;
+  border: 2px solid #d4af37;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* VIEW DETAILS DESIGN */
+
+.view-details-btn {
+  background-color: #d4af37;
+  color: #111;
+  border: 2px solid #d4af37;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.view-details-btn:hover {
+  background-color: #111;
+  color: #d4af37;
+  box-shadow: 0 0 10px #d4af37;
+}

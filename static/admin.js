@@ -6,6 +6,69 @@ let adminProducts = [
   { name: "T-Shirt", price: 400, stock: 8 },
 ];
 
+let adminOrders = [
+  { id: "KK101", customer: "Rahul", total: 1700, status: "Pending" },
+  { id: "KK102", customer: "Ananya", total: 1200, status: "Processing" },
+  { id: "KK103", customer: "Kiran", total: 800, status: "Delivered" },
+];
+
+function displayAdminOrders() {
+  let adminOrderList = document.getElementById("admin-order-list");
+
+  adminOrderList.innerHTML = "";
+
+  for (let order of adminOrders) {
+    adminOrderList.innerHTML += `
+            <tr>
+                <td>${order.id}</td>
+                <td>${order.customer}</td>
+                <td>₹${order.total}</td>
+                <td>${order.status}</td>
+                <td>
+    <select
+    class="order-status-select"
+    id="order-status-${adminOrders.indexOf(order)}"
+    name="order-status"
+    onchange="updateOrderStatus(${adminOrders.indexOf(order)}, this.value)">
+        <option value="Pending">Pending</option>
+        <option value="Processing">Processing</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Delivered">Delivered</option>
+    </select>
+</td>
+<td>
+    <button class="view-details-btn" onclick="viewOrderDetails(${adminOrders.indexOf(order)})">
+    View Details
+</button>
+</td>
+            </tr>
+        `;
+  }
+}
+
+displayAdminOrders();
+
+function updateOrderStatus(index, newStatus) {
+  adminOrders[index].status = newStatus;
+
+  displayAdminOrders();
+}
+
+function viewOrderDetails(index) {
+  let order = adminOrders[index];
+
+  alert(
+    "Order ID: " +
+      order.id +
+      "\nCustomer: " +
+      order.customer +
+      "\nTotal Amount: ₹" +
+      order.total +
+      "\nStatus: " +
+      order.status,
+  );
+}
+
 function displayAdminProducts() {
   let totalProducts = adminProducts.length;
 
@@ -66,6 +129,7 @@ function displayAdminProducts() {
         Delete
     </button>
 </td>
+
         </tr>
     `;
   }
