@@ -12,12 +12,34 @@ let adminOrders = [
   { id: "KK103", customer: "Kiran", total: 800, status: "Delivered" },
 ];
 
+let orderSearch = document.getElementById("order-search");
+
+let orderStatusFilter = document.getElementById("order-status-filter");
+
+orderSearch.addEventListener("input", displayAdminOrders);
+
+orderStatusFilter.addEventListener("change", displayAdminOrders);
+
 function displayAdminOrders() {
   let adminOrderList = document.getElementById("admin-order-list");
 
   adminOrderList.innerHTML = "";
+  let searchText = orderSearch.value.toLowerCase();
 
-  for (let order of adminOrders) {
+  let selectedStatus = orderStatusFilter.value;
+
+  let filteredOrders = adminOrders.filter((order) => {
+    let matchesSearch =
+      order.id.toLowerCase().includes(searchText) ||
+      order.customer.toLowerCase().includes(searchText);
+
+    let matchesStatus =
+      selectedStatus === "all" || order.status === selectedStatus;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  for (let order of filteredOrders) {
     adminOrderList.innerHTML += `
             <tr>
                 <td>${order.id}</td>
@@ -43,6 +65,13 @@ function displayAdminOrders() {
 </td>
             </tr>
         `;
+  }
+  if (filteredOrders.length === 0) {
+    adminOrderList.innerHTML = `
+        <tr>
+            <td colspan="6">No Orders Found</td>
+        </tr>
+    `;
   }
 }
 

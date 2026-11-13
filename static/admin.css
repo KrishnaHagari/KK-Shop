@@ -220,3 +220,32 @@ td {
   color: #d4af37;
   box-shadow: 0 0 10px #d4af37;
 }
+
+#order-search,
+#order-status-filter {
+  padding: 12px 15px;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+#order-search {
+  width: 280px;
+}
+
+#order-search:focus,
+#order-status-filter:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 6px #d4af37;
+}
+
+#order-search::placeholder {
+  color: #aaaaaa;
+}
+
+#order-status-filter {
+  cursor: pointer;
+}

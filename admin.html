@@ -109,6 +109,14 @@
 <section class="orders-section">
 
     <h2>Customer Orders</h2>
+    <input type="text" id="order-search" placeholder="Search Order ID or Customer Name">
+    <select id="order-status-filter">
+        <option value="all">All Orders</option>
+        <option value="Pending">Pending</option>
+        <option value="Processing">Processing</option>
+        <option value="Shipped">Shipped</option>
+        <option value="Delivered">Delivered</option>
+    </select>
 
     <table>
         <thead>
