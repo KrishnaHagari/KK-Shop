@@ -1,9 +1,9 @@
 console.log("KK Admin come To Rule");
 
 let adminProducts = [
-  { name: "Shirt", price: 500, stock: 10 },
-  { name: "Jeans", price: 1200, stock: 5 },
-  { name: "T-Shirt", price: 400, stock: 8 },
+  { name: "Shirt", price: 500, stock: 10, category: "Men" },
+  { name: "Jeans", price: 1200, stock: 5, category: "Men" },
+  { name: "T-Shirt", price: 400, stock: 8, category: "Men" },
 ];
 
 let adminOrders = [
@@ -149,6 +149,7 @@ function displayAdminProducts() {
             <td>${product.price || 0}</td>
             <td>${product.stock}</td>
             <td class="${statusClass}">${status}</td>
+            <td>${product.category || "Uncategorized"}</td>
             <td>
     <button class="edit" onclick="editProduct(${adminProducts.indexOf(product)})">
         Edit
@@ -187,6 +188,15 @@ productForm.addEventListener("submit", function (event) {
 
   console.log(newProduct);
 
+  let duplicateProduct = adminProducts.some((product) => {
+    return product.name.toLowerCase() === productName.toLowerCase();
+  });
+
+  if (duplicateProduct) {
+    alert("Product already exists!");
+    return;
+  }
+
   adminProducts.push(newProduct);
   displayAdminProducts();
   productForm.reset();
@@ -213,16 +223,45 @@ function editProduct(index) {
 
   let newStock = prompt("Enter Product Stock", product.stock);
 
+  let newCategory = prompt("Enter Product Category", product.category);
+
+  if (newCategory === null) return;
+
+  if (newCategory.trim() === "") {
+    alert("Please enter valid category!");
+    return;
+  }
+
   if (newStock === null) return;
 
-  if (newStock === "" || Number(newStock) < 0) {
-    alert("Please enter valid stock!");
+  if (newName.trim() === "") {
+    alert("Product name cannot be empty!");
+    return;
+  }
+
+  if (
+    newPrice.trim() === "" ||
+    isNaN(Number(newPrice)) ||
+    Number(newPrice) <= 0
+  ) {
+    alert("Please enter valid price!");
+    return;
+  }
+
+  if (
+    newStock.trim() === "" ||
+    isNaN(Number(newStock)) ||
+    Number(newStock) < 0 ||
+    !Number.isInteger(Number(newStock))
+  ) {
+    alert("Please enter valid whole number stock!");
     return;
   }
 
   product.name = newName;
   product.price = Number(newPrice);
   product.stock = Number(newStock);
+  product.category = newCategory;
 
   displayAdminProducts();
 }
