@@ -90,7 +90,24 @@
 
     <h2>Product Overview</h2>
 
-    <table>
+    <div class="product-filters">
+
+    <input
+        type="text"
+        id="product-search"
+        placeholder="Search Product Name or Category"
+    >
+
+    <select id="product-search-filter">
+        <option value="all">All Products</option>
+        <option value="in-stock">In Stock</option>
+        <option value="low-stock">Low Stock</option>
+        <option value="out-stock">Out of Stock</option>
+    </select>
+
+</div>
+
+    <table id="product-search-filter">
         <thead>
             <tr>
                 <th>Product Name</th>

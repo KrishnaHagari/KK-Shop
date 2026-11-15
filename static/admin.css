@@ -323,3 +323,55 @@ td {
     box-sizing: border-box;
   }
 }
+
+/* PRODUCT SEARCH AND FILTER */
+
+.product-filters {
+  display: flex;
+  gap: 15px;
+  margin: 15px 0;
+  flex-wrap: wrap;
+}
+
+#product-search,
+#product-search-filter {
+  padding: 12px 15px;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+#product-search {
+  width: 280px;
+}
+
+#product-search:focus,
+#product-search-filter:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 6px #d4af37;
+}
+
+#product-search::placeholder {
+  color: #aaaaaa;
+}
+
+#product-search-filter {
+  cursor: pointer;
+}
+
+/* MOBILE RESPONSIVE */
+
+@media (max-width: 768px) {
+  .product-filters {
+    flex-direction: column;
+  }
+
+  #product-search,
+  #product-search-filter {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

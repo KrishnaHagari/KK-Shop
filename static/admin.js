@@ -20,6 +20,14 @@ orderSearch.addEventListener("input", displayAdminOrders);
 
 orderStatusFilter.addEventListener("change", displayAdminOrders);
 
+let productSearch = document.getElementById("product-search");
+
+let productStatusFilter = document.getElementById("product-search-filter");
+
+productSearch.addEventListener("input", displayAdminProducts);
+
+productStatusFilter.addEventListener("change", displayAdminProducts);
+
 function displayAdminOrders() {
   let adminOrderList = document.getElementById("admin-order-list");
 
@@ -127,7 +135,29 @@ function displayAdminProducts() {
   let adminProductList = document.getElementById("admin-product-list");
   adminProductList.innerHTML = "";
 
-  for (let product of adminProducts) {
+  let searchText = productSearch.value.toLowerCase();
+
+  let selectedStatus = productStatusFilter.value;
+
+  let filteredProducts = adminProducts.filter((product) => {
+    let matchesSearch =
+      product.name.toLowerCase().includes(searchText) ||
+      product.category.toLowerCase().includes(searchText);
+
+    let matchesStatus = true;
+
+    if (selectedStatus === "in-stock") {
+      matchesStatus = product.stock > 5;
+    } else if (selectedStatus === "low-stock") {
+      matchesStatus = product.stock > 0 && product.stock <= 5;
+    } else if (selectedStatus === "out-stock") {
+      matchesStatus = product.stock === 0;
+    }
+
+    return matchesSearch && matchesStatus;
+  });
+
+  for (let product of filteredProducts) {
     let status;
 
     let statusClass;
@@ -160,6 +190,13 @@ function displayAdminProducts() {
     </button>
 </td>
 
+        </tr>
+    `;
+  }
+  if (filteredProducts.length === 0) {
+    adminProductList.innerHTML = `
+        <tr>
+            <td colspan="6">No Products Found</td>
         </tr>
     `;
   }
