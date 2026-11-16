@@ -375,3 +375,31 @@ td {
     box-sizing: border-box;
   }
 }
+
+#product-sort {
+  padding: 12px 15px;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+#product-sort:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 6px #d4af37;
+}
+
+#product-sort option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  #product-sort {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

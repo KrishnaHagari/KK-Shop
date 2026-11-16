@@ -24,6 +24,10 @@ let productSearch = document.getElementById("product-search");
 
 let productStatusFilter = document.getElementById("product-search-filter");
 
+let productSort = document.getElementById("product-sort");
+
+productSort.addEventListener("change", displayAdminProducts);
+
 productSearch.addEventListener("input", displayAdminProducts);
 
 productStatusFilter.addEventListener("change", displayAdminProducts);
@@ -156,6 +160,18 @@ function displayAdminProducts() {
 
     return matchesSearch && matchesStatus;
   });
+
+  let sortOrder = productSort.value;
+
+  if (sortOrder === "price-low") {
+    filteredProducts.sort((a, b) => a.price - b.price);
+  } else if (sortOrder === "price-high") {
+    filteredProducts.sort((a, b) => b.price - a.price);
+  } else if (sortOrder === "stock-low") {
+    filteredProducts.sort((a, b) => a.stock - b.stock);
+  } else if (sortOrder === "stock-high") {
+    filteredProducts.sort((a, b) => b.stock - a.stock);
+  }
 
   for (let product of filteredProducts) {
     let status;
