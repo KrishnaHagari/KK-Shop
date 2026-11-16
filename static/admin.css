@@ -156,27 +156,6 @@ td {
   background-color: #f5d76e;
 }
 
-.edit {
-  background-color: orange;
-  transition: 0.3s;
-  cursor: pointer;
-}
-
-.edit:hover {
-  background-color: darkorange;
-}
-
-.delete {
-  background-color: red;
-  transition: 0, 3s;
-  cursor: pointer;
-  font-weight: 500;
-}
-
-.delete:hover {
-  background-color: darkred;
-}
-
 .low-stock {
   color: #ffa500;
   font-weight: bold;
@@ -402,4 +381,27 @@ td {
     width: 100%;
     box-sizing: border-box;
   }
+}
+
+/* INVENTORY MANAGEMENT BUTTONS */
+
+#admin-product-list button {
+  padding: 8px 12px;
+  margin: 4px;
+  background-color: #1a1a1a;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+#admin-product-list button:hover {
+  background-color: #d4af37;
+  color: #000;
+}
+
+#admin-product-list button:active {
+  transform: scale(0.95);
 }

@@ -197,15 +197,26 @@ function displayAdminProducts() {
             <td class="${statusClass}">${status}</td>
             <td>${product.category || "Uncategorized"}</td>
             <td>
-    <button class="edit" onclick="editProduct(${adminProducts.indexOf(product)})">
+    <button onclick="editProduct(${adminProducts.indexOf(product)})">
         Edit
     </button>
 
-    <button class="delete" onclick="deleteProduct(${adminProducts.indexOf(product)})">
+    <button onclick="deleteProduct(${adminProducts.indexOf(product)})">
         Delete
     </button>
-</td>
 
+    <button onclick="updateStock(${adminProducts.indexOf(product)}, 1)">
+    Stock +
+</button>
+
+<button onclick="updateStock(${adminProducts.indexOf(product)}, -1)">
+    Stock -
+</button>
+
+<button onclick="setStock(${adminProducts.indexOf(product)})">
+    Update Stock
+</button>
+</td>
         </tr>
     `;
   }
@@ -218,6 +229,36 @@ function displayAdminProducts() {
   }
 }
 displayAdminProducts();
+
+function updateStock(index, change) {
+  if (adminProducts[index].stock + change < 0) {
+    alert("Stock cannot be negative!");
+    return;
+  }
+
+  adminProducts[index].stock += change;
+
+  displayAdminProducts();
+}
+
+function setStock(index) {
+  let newStock = prompt("Enter New Stock Quantity:");
+
+  if (newStock === null || newStock.trim() === "") {
+    return;
+  }
+
+  newStock = Number(newStock);
+
+  if (!Number.isInteger(newStock) || newStock < 0) {
+    alert("Please enter a valid stock quantity!");
+    return;
+  }
+
+  adminProducts[index].stock = newStock;
+
+  displayAdminProducts();
+}
 
 let productForm = document.getElementById("product-form");
 productForm.addEventListener("submit", function (event) {
