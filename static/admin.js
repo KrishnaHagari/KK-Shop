@@ -10,11 +10,15 @@ function saveAdminProducts() {
   localStorage.setItem("kkProducts", JSON.stringify(adminProducts));
 }
 
-let adminOrders = [
+let adminOrders = JSON.parse(localStorage.getItem("kkOrders")) || [
   { id: "KK101", customer: "Rahul", total: 1700, status: "Pending" },
   { id: "KK102", customer: "Ananya", total: 1200, status: "Processing" },
   { id: "KK103", customer: "Kiran", total: 800, status: "Delivered" },
 ];
+
+function saveAdminOrders() {
+  localStorage.setItem("kkOrders", JSON.stringify(adminOrders));
+}
 
 let orderSearch = document.getElementById("order-search");
 
@@ -96,6 +100,8 @@ displayAdminOrders();
 function updateOrderStatus(index, newStatus) {
   adminOrders[index].status = newStatus;
 
+  saveAdminOrders();
+
   displayAdminOrders();
 }
 
@@ -136,7 +142,7 @@ function displayAdminProducts() {
 
   document.getElementById("total-products").innerText = totalProducts;
 
-  document.getElementById("total-orders").innerText = 0;
+  document.getElementById("total-orders").innerText = adminOrders.length;
 
   document.getElementById("available-stock").innerText = availableStock;
 
