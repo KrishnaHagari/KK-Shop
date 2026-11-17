@@ -1,10 +1,14 @@
 console.log("KK Admin come To Rule");
 
-let adminProducts = [
+let adminProducts = JSON.parse(localStorage.getItem("kkProducts")) || [
   { name: "Shirt", price: 500, stock: 10, category: "Men" },
   { name: "Jeans", price: 1200, stock: 5, category: "Men" },
   { name: "T-Shirt", price: 400, stock: 8, category: "Men" },
 ];
+
+function saveAdminProducts() {
+  localStorage.setItem("kkProducts", JSON.stringify(adminProducts));
+}
 
 let adminOrders = [
   { id: "KK101", customer: "Rahul", total: 1700, status: "Pending" },
@@ -238,6 +242,8 @@ function updateStock(index, change) {
 
   adminProducts[index].stock += change;
 
+  saveAdminProducts();
+
   displayAdminProducts();
 }
 
@@ -256,6 +262,8 @@ function setStock(index) {
   }
 
   adminProducts[index].stock = newStock;
+
+  saveAdminProducts();
 
   displayAdminProducts();
 }
@@ -292,6 +300,7 @@ productForm.addEventListener("submit", function (event) {
   }
 
   adminProducts.push(newProduct);
+  saveAdminProducts();
   displayAdminProducts();
   productForm.reset();
 
@@ -300,7 +309,7 @@ productForm.addEventListener("submit", function (event) {
 
 function deleteProduct(index) {
   adminProducts.splice(index, 1);
-
+  saveAdminProducts();
   displayAdminProducts();
 }
 
@@ -356,6 +365,8 @@ function editProduct(index) {
   product.price = Number(newPrice);
   product.stock = Number(newStock);
   product.category = newCategory;
+
+  saveAdminProducts();
 
   displayAdminProducts();
 }
