@@ -250,6 +250,25 @@ function checkout() {
     return;
   }
 
+  let orderId = "KK" + Date.now();
+
+  let orderTotal = cart.reduce((total, item) => {
+    return total + item.price * item.quantity;
+  }, 0);
+
+  let newOrder = {
+    id: orderId,
+    customer: "Guest",
+    total: orderTotal,
+    status: "Pending",
+  };
+
+  let orders = JSON.parse(localStorage.getItem("kkOrders")) || [];
+
+  orders.push(newOrder);
+
+  localStorage.setItem("kkOrders", JSON.stringify(orders));
+
   for (let item of cart) {
     let product = products.find((product) => product.name === item.name);
 
