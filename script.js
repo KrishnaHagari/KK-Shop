@@ -256,9 +256,15 @@ function checkout() {
     return total + item.price * item.quantity;
   }, 0);
 
+  let customerName = document.getElementById("customer-name").value.trim();
+
+  if (customerName === "") {
+    alert("Please enter your name!");
+    return;
+  }
   let newOrder = {
     id: orderId,
-    customer: "Guest",
+    customer: customerName,
     total: orderTotal,
     status: "Pending",
   };

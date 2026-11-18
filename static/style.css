@@ -347,3 +347,59 @@ footer p {
   font-weight: bold;
   letter-spacing: 1px;
 }
+
+/* CUSTOMER NAME INPUT */
+
+#customer-name {
+  width: 100%;
+  max-width: 350px;
+  padding: 13px 15px;
+  margin: 15px 0;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.3s;
+}
+
+#customer-name:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 8px #d4af37;
+}
+
+#customer-name::placeholder {
+  color: #aaaaaa;
+}
+
+/* PRODUCT SORTING DESIGN */
+
+#sort-filter {
+  padding: 12px 15px;
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #d4af37;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#sort-filter:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 8px #d4af37;
+}
+
+#sort-filter option {
+  background-color: #1a1a1a;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  #sort-filter {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
