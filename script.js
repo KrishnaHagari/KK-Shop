@@ -267,6 +267,11 @@ function checkout() {
     customer: customerName,
     total: orderTotal,
     status: "Pending",
+    products: cart.map((item) => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: item.price,
+    })),
   };
 
   let orders = JSON.parse(localStorage.getItem("kkOrders")) || [];

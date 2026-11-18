@@ -108,11 +108,29 @@ function updateOrderStatus(index, newStatus) {
 function viewOrderDetails(index) {
   let order = adminOrders[index];
 
+  let productDetails = "";
+
+  if (order.products) {
+    for (let item of order.products) {
+      productDetails +=
+        "\n" +
+        item.name +
+        " - Qty: " +
+        item.quantity +
+        " - Price: ₹" +
+        item.price;
+    }
+  } else {
+    productDetails = "\nProduct details not available";
+  }
+
   alert(
     "Order ID: " +
       order.id +
       "\nCustomer: " +
       order.customer +
+      "\nProducts: " +
+      productDetails +
       "\nTotal Amount: ₹" +
       order.total +
       "\nStatus: " +
