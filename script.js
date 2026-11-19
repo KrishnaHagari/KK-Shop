@@ -267,6 +267,7 @@ function checkout() {
     customer: customerName,
     total: orderTotal,
     status: "Pending",
+    date: new Date().toLocaleString("en-IN"),
     products: cart.map((item) => ({
       name: item.name,
       quantity: item.quantity,

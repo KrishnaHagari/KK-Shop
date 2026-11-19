@@ -66,6 +66,7 @@ function displayAdminOrders() {
                 <td>${order.customer}</td>
                 <td>₹${order.total}</td>
                 <td>${order.status}</td>
+                <td>${order.date || "Not available"}</td>
                 <td>
     <select
     class="order-status-select"
@@ -93,7 +94,7 @@ function displayAdminOrders() {
   if (filteredOrders.length === 0) {
     adminOrderList.innerHTML = `
         <tr>
-            <td colspan="6">No Orders Found</td>
+            <td colspan="7">No Orders Found</td>
         </tr>
     `;
   }
