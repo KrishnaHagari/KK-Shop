@@ -82,6 +82,10 @@ function displayAdminOrders() {
     <button class="view-details-btn" onclick="viewOrderDetails(${adminOrders.indexOf(order)})">
     View Details
 </button>
+
+<button class="delete-order-btn" onclick="deleteOrder(${adminOrders.indexOf(order)})">
+    Delete
+</button>
 </td>
             </tr>
         `;
@@ -330,6 +334,19 @@ productForm.addEventListener("submit", function (event) {
 
   console.log(adminProducts);
 });
+
+function deleteOrder(index) {
+  let confirmDelete = confirm("Are you sure you want to delete this order?");
+
+  if (confirmDelete) {
+    adminOrders.splice(index, 1);
+
+    saveAdminOrders();
+
+    displayAdminOrders();
+    displayAdminProducts();
+  }
+}
 
 function deleteProduct(index) {
   adminProducts.splice(index, 1);
