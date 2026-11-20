@@ -165,7 +165,21 @@ function displayAdminProducts() {
 
   document.getElementById("total-products").innerText = totalProducts;
 
-  document.getElementById("total-orders").innerText = adminOrders.length;
+  document.getElementById("pending-orders").innerText = adminOrders.filter(
+    (order) => order.status === "Pending",
+  ).length;
+
+  document.getElementById("processing-orders").innerText = adminOrders.filter(
+    (order) => order.status === "Processing",
+  ).length;
+
+  document.getElementById("shipped-orders").innerText = adminOrders.filter(
+    (order) => order.status === "Shipped",
+  ).length;
+
+  document.getElementById("delivered-orders").innerText = adminOrders.filter(
+    (order) => order.status === "Delivered",
+  ).length;
 
   document.getElementById("available-stock").innerText = availableStock;
 
