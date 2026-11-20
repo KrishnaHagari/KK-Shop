@@ -76,11 +76,9 @@
 
     <form id="product-form">
 
-        <input
-            type="text"
-            id="product-name"
-            placeholder="Product Name"
-        >
+        <input type="file" id="product-image" accept="image/*">
+
+        <input type="text" id="product-name" placeholder="Product Name">
 
         <input
             type="number"
@@ -138,6 +136,7 @@
         <thead>
             <tr>
                 <th>Product Name</th>
+                <th>Image</th>
                 <th>Price</th>
                 <th>Stock</th>
                 <th>Status</th>

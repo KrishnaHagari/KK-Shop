@@ -1,9 +1,15 @@
 console.log("KK Admin come To Rule");
 
 let adminProducts = JSON.parse(localStorage.getItem("kkProducts")) || [
-  { name: "Shirt", price: 500, stock: 10, category: "Men" },
-  { name: "Jeans", price: 1200, stock: 5, category: "Men" },
-  { name: "T-Shirt", price: 400, stock: 8, category: "Men" },
+  { name: "Shirt", price: 500, stock: 10, category: "Men", image: "shirt.jpg" },
+  { name: "Jeans", price: 1200, stock: 5, category: "Men", image: "pant.jpg" },
+  {
+    name: "T-Shirt",
+    price: 400,
+    stock: 8,
+    category: "Men",
+    image: "tshirt.jpg",
+  },
 ];
 
 function saveAdminProducts() {
@@ -15,6 +21,20 @@ let adminOrders = JSON.parse(localStorage.getItem("kkOrders")) || [
   { id: "KK102", customer: "Ananya", total: 1200, status: "Processing" },
   { id: "KK103", customer: "Kiran", total: 800, status: "Delivered" },
 ];
+
+adminProducts.forEach((product) => {
+  if (!product.image) {
+    if (product.name === "Shirt") {
+      product.image = "shirt.jpg";
+    } else if (product.name === "Jeans") {
+      product.image = "jeans.jpg";
+    } else if (product.name === "T-Shirt") {
+      product.image = "tshirt.jpg";
+    }
+  }
+});
+
+saveAdminProducts();
 
 function saveAdminOrders() {
   localStorage.setItem("kkOrders", JSON.stringify(adminOrders));
@@ -239,6 +259,21 @@ function displayAdminProducts() {
     adminProductList.innerHTML += `
         <tr>
             <td>${product.name}</td>
+            <td>
+    
+    ${
+      product.image
+        ? `<img src="${
+            product.image.startsWith("data:")
+              ? product.image
+              : "images/" + product.image
+          }"
+            width="60" height="60"
+            style="object-fit: cover;">`
+        : "No Image"
+    }   
+</td>
+</td>
             <td>${product.price || 0}</td>
             <td>${product.stock}</td>
             <td class="${statusClass}">${status}</td>
@@ -312,26 +347,26 @@ function setStock(index) {
 }
 
 let productForm = document.getElementById("product-form");
+
 productForm.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  console.log("Add Product Form Submitted");
+  let imageInput = document.getElementById("product-image");
+  let selectedImage = imageInput.files[0];
 
-  let productName = document.getElementById("product-name").value;
+  if (!selectedImage) {
+    alert("Please select a product image!");
+    return;
+  }
+
+  if (!selectedImage.type.startsWith("image/")) {
+    alert("Please select a valid image file!");
+    return;
+  }
+  let productName = document.getElementById("product-name").value.trim();
   let productPrice = Number(document.getElementById("product-price").value);
   let productStock = Number(document.getElementById("product-stock").value);
   let productCategory = document.getElementById("product-category").value;
-
-  console.log(productName, productPrice, productStock, productCategory);
-
-  let newProduct = {
-    name: productName,
-    price: productPrice,
-    stock: productStock,
-    category: productCategory,
-  };
-
-  console.log(newProduct);
 
   let duplicateProduct = adminProducts.some((product) => {
     return product.name.toLowerCase() === productName.toLowerCase();
@@ -342,12 +377,27 @@ productForm.addEventListener("submit", function (event) {
     return;
   }
 
-  adminProducts.push(newProduct);
-  saveAdminProducts();
-  displayAdminProducts();
-  productForm.reset();
+  let reader = new FileReader();
 
-  console.log(adminProducts);
+  reader.onload = function () {
+    let newProduct = {
+      name: productName,
+      price: productPrice,
+      stock: productStock,
+      category: productCategory,
+      image: reader.result,
+    };
+
+    adminProducts.push(newProduct);
+
+    saveAdminProducts();
+    displayAdminProducts();
+    productForm.reset();
+
+    alert("Product added successfully!");
+  };
+
+  reader.readAsDataURL(selectedImage);
 });
 
 function deleteOrder(index) {
