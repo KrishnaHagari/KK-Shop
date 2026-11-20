@@ -69,14 +69,14 @@ function displayAdminOrders() {
                 <td>${order.date || "Not available"}</td>
                 <td>
     <select
-    class="order-status-select"
+    class="order-status-select  ${order.status.toLowerCase()}"
     id="order-status-${adminOrders.indexOf(order)}"
     name="order-status"
     onchange="updateOrderStatus(${adminOrders.indexOf(order)}, this.value)">
-        <option value="Pending">Pending</option>
-        <option value="Processing">Processing</option>
-        <option value="Shipped">Shipped</option>
-        <option value="Delivered">Delivered</option>
+        <option value="Pending" ${order.status === "Pending" ? "selected" : ""}>Pending</option>
+<option value="Processing" ${order.status === "Processing" ? "selected" : ""}>Processing</option>
+<option value="Shipped" ${order.status === "Shipped" ? "selected" : ""}>Shipped</option>
+<option value="Delivered" ${order.status === "Delivered" ? "selected" : ""}>Delivered</option>
     </select>
 </td>
 <td>

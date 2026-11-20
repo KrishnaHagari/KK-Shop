@@ -428,3 +428,32 @@ td {
 .delete-order-btn:active {
   transform: scale(0.95);
 }
+
+.order-status-select {
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #d4af37;
+  background-color: #1a1a1a;
+  color: white;
+  cursor: pointer;
+}
+
+.order-status-select.pending {
+  border-color: #ffa500;
+  color: #ffa500;
+}
+
+.order-status-select.processing {
+  border-color: #3498db;
+  color: #3498db;
+}
+
+.order-status-select.shipped {
+  border-color: #9b59b6;
+  color: #9b59b6;
+}
+
+.order-status-select.delivered {
+  border-color: #00cc66;
+  color: #00cc66;
+}
