@@ -457,3 +457,60 @@ td {
   border-color: #00cc66;
   color: #00cc66;
 }
+
+/* MANAGE CATEGORIES */
+
+.manage-categories {
+  margin-top: 15px;
+}
+
+.manage-categories button {
+  background-color: #d4af37;
+  color: #111;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.manage-categories button:hover {
+  background-color: #f1d36b;
+  transform: translateY(-2px);
+}
+
+#category-manager-list {
+  margin-top: 15px;
+  padding: 15px;
+  background-color: #1a1a1a;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+}
+
+#category-manager-list div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+  color: white;
+}
+
+#category-manager-list div:last-child {
+  border-bottom: none;
+}
+
+#category-manager-list button {
+  background-color: #111111;
+  color: red;
+  padding: 4px 9px;
+  font-size: 12px;
+  border-radius: 4px;
+  min-width: auto;
+  max-width: fit-content;
+}
+
+#category-manager-list button:hover {
+  background-color: #c0392b;
+}

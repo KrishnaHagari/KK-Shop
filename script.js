@@ -2,7 +2,7 @@ console.log("KK SHOP LOADED");
 
 // 1. Product Details
 
-let products = [
+let products = JSON.parse(localStorage.getItem("kkProducts")) || [
   {
     name: "Shirt",
     price: 500,
@@ -51,7 +51,12 @@ function displayProducts(productArray) {
 
     productList.innerHTML += `
             <div class="product-card">
-                <img src="images/${productArray[i].image}" alt="${productArray[i].name}">
+               <img src="${
+                 productArray[i].image.startsWith("data:")
+                   ? productArray[i].image
+                   : "images/" + productArray[i].image
+               }"
+    alt="${productArray[i].name}">
 
                 <h3>${productArray[i].name}</h3>
 
@@ -345,3 +350,28 @@ function filterProducts() {
 }
 
 console.log("KK SHOP ALL FEATURES LOADED");
+
+let storeCategories = JSON.parse(localStorage.getItem("kkCategories")) || [
+  "Men",
+  "Women",
+  "Kids",
+];
+
+function displayStoreCategories() {
+  let categoryFilter = document.getElementById("category-filter");
+
+  categoryFilter.innerHTML = `
+        <option value="all">All Categories</option>
+    `;
+
+  storeCategories.forEach((category) => {
+    let option = document.createElement("option");
+
+    option.value = category;
+    option.textContent = category;
+
+    categoryFilter.appendChild(option);
+  });
+}
+
+displayStoreCategories();

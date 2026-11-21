@@ -1,5 +1,11 @@
 console.log("KK Admin come To Rule");
 
+let categories = JSON.parse(localStorage.getItem("kkCategories")) || [
+  "Men",
+  "Women",
+  "Kids",
+];
+
 let adminProducts = JSON.parse(localStorage.getItem("kkProducts")) || [
   { name: "Shirt", price: 500, stock: 10, category: "Men", image: "shirt.jpg" },
   { name: "Jeans", price: 1200, stock: 5, category: "Men", image: "pant.jpg" },
@@ -11,6 +17,119 @@ let adminProducts = JSON.parse(localStorage.getItem("kkProducts")) || [
     image: "tshirt.jpg",
   },
 ];
+
+function addCategory() {
+  let newCategoryInput = document.getElementById("new-category");
+
+  let newCategory = newCategoryInput.value.trim();
+
+  if (newCategory === "") {
+    alert("Please enter a category!");
+    return;
+  }
+
+  let categoryExists = categories.some((category) => {
+    return category.toLowerCase() === newCategory.toLowerCase();
+  });
+
+  if (categoryExists) {
+    alert("Category already exists!");
+    return;
+  }
+
+  categories.push(newCategory);
+
+  localStorage.setItem("kkCategories", JSON.stringify(categories));
+
+  let categorySelect = document.getElementById("product-category");
+
+  let option = document.createElement("option");
+  option.value = newCategory;
+  option.textContent = newCategory;
+
+  categorySelect.appendChild(option);
+
+  newCategoryInput.value = "";
+
+  alert("Category added successfully!");
+}
+
+function displayCategories() {
+  let categorySelect = document.getElementById("product-category");
+
+  categorySelect.innerHTML = `
+        <option value="">Select Category</option>
+    `;
+
+  categories.forEach((category) => {
+    let option = document.createElement("option");
+
+    option.value = category;
+    option.textContent = category;
+
+    categorySelect.appendChild(option);
+  });
+}
+
+function toggleCategoryManager() {
+  let categoryManager = document.getElementById("category-manager-list");
+
+  if (categoryManager.style.display === "none") {
+    categoryManager.style.display = "block";
+    displayManageCategories();
+  } else {
+    categoryManager.style.display = "none";
+  }
+}
+
+function displayManageCategories() {
+  let categoryManager = document.getElementById("category-manager-list");
+
+  categoryManager.innerHTML = "";
+
+  categories.forEach((category) => {
+    let categoryRow = document.createElement("div");
+
+    categoryRow.innerHTML = `
+            <span>${category}</span>
+            <button type="button" onclick="deleteCategory('${category}')">
+                Remove
+            </button>
+        `;
+
+    categoryManager.appendChild(categoryRow);
+  });
+}
+
+function deleteCategory(categoryName) {
+  let categoryUsed = adminProducts.some((product) => {
+    return product.category === categoryName;
+  });
+
+  if (categoryUsed) {
+    alert("This category has products. Please change their category first!");
+    return;
+  }
+
+  let confirmDelete = confirm(
+    `Are you sure you want to delete ${categoryName}?`,
+  );
+
+  if (!confirmDelete) {
+    return;
+  }
+
+  categories = categories.filter((category) => {
+    return category !== categoryName;
+  });
+
+  localStorage.setItem("kkCategories", JSON.stringify(categories));
+
+  displayCategories();
+  displayManageCategories();
+
+  alert("Category deleted successfully!");
+}
 
 function saveAdminProducts() {
   localStorage.setItem("kkProducts", JSON.stringify(adminProducts));
@@ -366,8 +485,11 @@ productForm.addEventListener("submit", function (event) {
   let productName = document.getElementById("product-name").value.trim();
   let productPrice = Number(document.getElementById("product-price").value);
   let productStock = Number(document.getElementById("product-stock").value);
-  let productCategory = document.getElementById("product-category").value;
+  let productCategory = document
+    .getElementById("product-category")
+    .value.trim();
 
+  console.log("Selected Category:", productCategory);
   let duplicateProduct = adminProducts.some((product) => {
     return product.name.toLowerCase() === productName.toLowerCase();
   });
@@ -476,3 +598,4 @@ function editProduct(index) {
 
   displayAdminProducts();
 }
+displayCategories();

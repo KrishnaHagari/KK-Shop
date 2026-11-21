@@ -99,6 +99,25 @@
             <option value="Kids">Kids</option>
         </select>
 
+        <div class="category-management">
+    <input
+        type="text"
+        id="new-category"
+        placeholder="Enter New Category"
+    >
+
+    <button type="button" onclick="addCategory()">
+        Add Category
+    </button>
+</div>
+<div class="manage-categories">
+    <button type="button" onclick="toggleCategoryManager()">
+        Manage Categories
+    </button>
+
+    <div id="category-manager-list" style="display: none;">
+    </div>
+</div>
         <button type="submit">Add Product</button>
 
     </form>
