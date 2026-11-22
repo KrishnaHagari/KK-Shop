@@ -93,6 +93,7 @@ function viewDetails(index) {
 
     <div class="details-image">
         <img src="${imagePath}" alt="${selectedProduct.name}">
+
     </div>
 
     <div class="details-info">
