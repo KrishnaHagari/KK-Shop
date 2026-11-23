@@ -376,3 +376,21 @@ function displayStoreCategories() {
 }
 
 displayStoreCategories();
+
+async function loadProductsFromBackend() {
+  try {
+    let response = await fetch("http://127.0.0.1:5000/api/products");
+
+    let data = await response.json();
+
+    products = data.products;
+
+    filterProducts();
+
+    console.log("Products loaded from Python Backend!");
+  } catch (error) {
+    console.log("Backend Connection Error:", error);
+  }
+}
+
+loadProductsFromBackend();
