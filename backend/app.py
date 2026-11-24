@@ -1,5 +1,13 @@
 from flask import Flask
 from flask_cors import CORS
+import sys
+import os
+
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
+
+from database.db import get_all_products
 
 app = Flask(__name__)
 
@@ -12,36 +20,23 @@ def home():
 @app.route("/api/products")
 def get_products():
 
-    products = [
-        {
-            "id": 1,
-            "name": "Shirt",
-            "price": 500,
-            "stock": 10,
-            "category": "Men",
-            "image": "shirt.jpg"
-        },
-        {
-            "id": 2,
-            "name": "Jeans",
-            "price": 1200,
-            "stock": 5,
-            "category": "Men",
-            "image": "jeans.jpg"
-        },
-        {
-            "id": 3,
-            "name": "T-Shirt",
-            "price": 400,
-            "stock": 8,
-            "category": "Men",
-            "image": "tshirt.jpg"
-        }
-    ]
+    products = get_all_products()
+
+    product_list = []
+
+    for product in products:
+        product_list.append({
+            "id": product[0],
+            "name": product[1],
+            "price": product[2],
+            "stock": product[3],
+            "category": product[4],
+            "image": product[5]
+        })
 
     return {
         "message": "Products loaded successfully!",
-        "products": products
+        "products": product_list
     }
 
 if __name__ == "__main__":
