@@ -23,6 +23,51 @@ def create_products_table():
     connection.commit()
     connection.close()
 
+def create_orders_table():
+
+    connection = connect_db()
+
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS orders (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            customer_name TEXT NOT NULL,
+            total REAL NOT NULL,
+            status TEXT DEFAULT 'Pending',
+            order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    connection.commit()
+    connection.close()
+
+    print("Orders Table Created Successfully!")
+
+def insert_order(customer_name, total):
+
+    connection = connect_db()
+
+    connection.execute("""
+        INSERT INTO orders (customer_name, total)
+        VALUES (?, ?)
+    """, (customer_name, total))
+
+    connection.commit()
+    connection.close()
+
+    print("Order Saved Successfully!")
+
+def get_all_orders():
+
+    connection = connect_db()
+
+    orders = connection.execute(
+        "SELECT * FROM orders"
+    ).fetchall()
+
+    connection.close()
+
+    return orders
+
 def insert_sample_products():
 
     connection = connect_db()
@@ -83,11 +128,13 @@ def get_all_products():
     return products
 
 if __name__ == "__main__":
+
     create_products_table()
-    insert_sample_products()
-    remove_duplicate_products()
+    create_orders_table()
 
-    products = get_all_products()
+    insert_order("Rahul", 1700)
 
-    for product in products:
-        print(product)
+    orders = get_all_orders()
+
+    for order in orders:
+        print(order)
