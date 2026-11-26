@@ -599,3 +599,31 @@ function editProduct(index) {
   displayAdminProducts();
 }
 displayCategories();
+
+async function loadAdminOrdersFromBackend() {
+  try {
+    let response = await fetch("http://127.0.0.1:5000/api/orders");
+
+    let data = await response.json();
+
+    if (!response.ok) {
+      throw new Error("Failed to load orders!");
+    }
+
+    adminOrders = data.orders.map((order) => ({
+      id: String(order.id),
+      customer: order.customer_name,
+      total: order.total,
+      status: order.status,
+      date: order.order_date,
+    }));
+
+    displayAdminOrders();
+
+    console.log("Admin Orders Loaded from Database!");
+  } catch (error) {
+    console.error("Admin Orders Error:", error);
+  }
+}
+
+loadAdminOrdersFromBackend();

@@ -250,7 +250,7 @@ let checkoutButton = document.getElementById("checkout-btn");
 
 checkoutButton.addEventListener("click", checkout);
 
-function checkout() {
+async function checkout() {
   if (cart.length === 0) {
     alert("Your cart is empty!");
     return;
@@ -280,6 +280,31 @@ function checkout() {
       price: item.price,
     })),
   };
+
+  try {
+    let response = await fetch("http://127.0.0.1:5000/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customer_name: customerName,
+        total: orderTotal,
+      }),
+    });
+
+    let data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Order could not be saved!");
+    }
+
+    console.log(data.message);
+  } catch (error) {
+    console.error("Order Error:", error);
+    alert("Order failed! Please try again.");
+    return;
+  }
 
   let orders = JSON.parse(localStorage.getItem("kkOrders")) || [];
 
