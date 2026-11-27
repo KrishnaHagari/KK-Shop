@@ -42,6 +42,39 @@ def create_orders_table():
 
     print("Orders Table Created Successfully!")
 
+def create_customers_table():
+
+    connection = connect_db()
+
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS customers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT UNIQUE NOT NULL,
+            password TEXT NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    connection.commit()
+    connection.close()
+
+    print("Customers Table Created Successfully!")
+
+def register_customer(name, email, password):
+
+    connection = connect_db()
+
+    connection.execute("""
+        INSERT INTO customers (name, email, password)
+        VALUES (?, ?, ?)
+    """, (name, email, password))
+
+    connection.commit()
+    connection.close()
+
+    print("Customer Registered Successfully!")
+
 def insert_order(customer_name, total):
 
     connection = connect_db()
@@ -131,9 +164,7 @@ if __name__ == "__main__":
 
     create_products_table()
     create_orders_table()
-
-    insert_order("Rahul", 1700)
-
+    create_customers_table()
     orders = get_all_orders()
 
     for order in orders:

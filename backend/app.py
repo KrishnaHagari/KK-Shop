@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from werkzeug.security import generate_password_hash
 import sys
 import os
 
@@ -7,7 +8,7 @@ sys.path.append(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 )
 
-from database.db import get_all_products, insert_order, get_all_orders
+from database.db import get_all_products, insert_order, get_all_orders,register_customer
 
 app = Flask(__name__)
 
@@ -73,6 +74,39 @@ def display_orders():
         "message": "Orders loaded successfully!",
         "orders": order_list
     })
+
+@app.route("/api/register", methods=["POST"])
+def register():
+
+    data = request.get_json()
+
+    name = data.get("name", "").strip()
+    email = data.get("email", "").strip().lower()
+    password = data.get("password", "")
+
+    if not name or not email or not password:
+        return jsonify({
+            "message": "All fields are required!"
+        }), 400
+
+    if len(password) < 8:
+        return jsonify({
+            "message": "Password must be at least 8 characters!"
+        }), 400
+
+    hashed_password = generate_password_hash(password)
+
+    try:
+        register_customer(name, email, hashed_password)
+
+    except Exception:
+        return jsonify({
+            "message": "Email already registered or registration failed!"
+        }), 409
+
+    return jsonify({
+        "message": "Registration successful!"
+    }), 201
 
 if __name__ == "__main__":
     app.run(debug=True)
