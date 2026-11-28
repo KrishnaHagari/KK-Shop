@@ -94,15 +94,23 @@ def register():
             "message": "Password must be at least 8 characters!"
         }), 400
 
+    import time
+
+    start_time = time.time()
+    
     hashed_password = generate_password_hash(password)
+    
+    print("Password Hashing Time:", time.time() - start_time)
 
     try:
         register_customer(name, email, hashed_password)
 
-    except Exception:
+    except Exception as error:
+        print("Registration Error:", error)
+
         return jsonify({
-            "message": "Email already registered or registration failed!"
-        }), 409
+            "message": "Registration failed!"
+        }), 500
 
     return jsonify({
         "message": "Registration successful!"
